@@ -41,7 +41,7 @@ public class OpenDotaAPIWrapper {
      * @param id player id.
      * @return JSONObject containing player information.
      */
-    public static JSONObject getPlayer(int id) {
+    public static JSONObject getPlayer(long id) {
         String apiFunc = "/players/" + id;
         return new JSONObject(getData(apiBase + apiFunc));
     }
@@ -54,7 +54,7 @@ public class OpenDotaAPIWrapper {
      * @param id player id.
      * @return JSONObject containing win/loss count.
      */
-    public static JSONObject getPlayerWL(int id) {
+    public static JSONObject getPlayerWL(long id) {
         String apiFunc = "/players/" + id + "/wl";
         return new JSONObject(getData(apiBase + apiFunc));
     }
@@ -65,7 +65,7 @@ public class OpenDotaAPIWrapper {
      * @param id player id.
      * @return JSONArray containing recent matches.
      */
-    public static JSONArray getPlayerRecentMatches(int id) {
+    public static JSONArray getPlayerRecentMatches(long id) {
         String apiFunc = "/players/" + id + "/recentmatches";
         return new JSONArray(getData(apiBase + apiFunc));
     }
@@ -78,7 +78,7 @@ public class OpenDotaAPIWrapper {
      * @param id player id.
      * @return JSONArray containing matches.
      */
-    public static JSONArray getPlayerMatches(int id) {
+    public static JSONArray getPlayerMatches(long id) {
         String apiFunc = "/players/" + id + "/matches";
         return new JSONArray(getData(apiBase + apiFunc));
     }
@@ -91,7 +91,7 @@ public class OpenDotaAPIWrapper {
      * @param id player id.
      * @return JSONArray containing heroes played.
      */
-    public static JSONArray getPlayerHeroes(int id) {
+    public static JSONArray getPlayerHeroes(long id) {
         String apiFunc = "/players/" + id + "/heroes";
         return new JSONArray(getData(apiBase + apiFunc));
     }
@@ -104,7 +104,7 @@ public class OpenDotaAPIWrapper {
      * @param id player id.
      * @return JSONArray containing players played with.
      */
-    public static JSONArray getPlayerPeers(int id) {
+    public static JSONArray getPlayerPeers(long id) {
         String apiFunc = "/players/" + id + "/peers";
         return new JSONArray(getData(apiBase + apiFunc));
     }
@@ -117,7 +117,7 @@ public class OpenDotaAPIWrapper {
      * @param id player id.
      * @return JSONArray containing pro players played with.
      */
-    public static JSONArray getPlayerPros(int id) {
+    public static JSONArray getPlayerPros(long id) {
         String apiFunc = "/players/" + id + "/pros";
         return new JSONArray(getData(apiBase + apiFunc));
     }
@@ -130,7 +130,7 @@ public class OpenDotaAPIWrapper {
      * @param id player id.
      * @return JSONArray containing player life time stats.
      */
-    public static JSONArray getPlayerTotals(int id) {
+    public static JSONArray getPlayerTotals(long id) {
         String apiFunc = "/players/" + id + "/totals";
         return new JSONArray(getData(apiBase + apiFunc));
     }
@@ -144,7 +144,7 @@ public class OpenDotaAPIWrapper {
      * @param id player id.
      * @return JSONObject containing player win/loss counts.
      */
-    public static JSONObject getPlayerCounts(int id) {
+    public static JSONObject getPlayerCounts(long id) {
         String apiFunc = "/players/" + id + "/counts";
         return new JSONObject(getData(apiBase + apiFunc));
     }
@@ -157,7 +157,7 @@ public class OpenDotaAPIWrapper {
      * @param id player id.
      * @return JSONObject containing number of placed in played matches.
      */
-    public static JSONObject getPlayerWardMap(int id) {
+    public static JSONObject getPlayerWardMap(long id) {
         String apiFunc = "/players/" + id + "/wardmap";
         return new JSONObject(getData(apiBase + apiFunc));
     }
@@ -170,7 +170,7 @@ public class OpenDotaAPIWrapper {
      * @param id player id.
      * @return JSONObject containing words said/read.
      */
-    public static JSONObject getPlayerWordCloud(int id) {
+    public static JSONObject getPlayerWordCloud(long id) {
         String apiFunc = "/players/" + id + "/wordcloud";
         return new JSONObject(getData(apiBase + apiFunc));
     }
@@ -181,7 +181,7 @@ public class OpenDotaAPIWrapper {
      * @param id player id.
      * @return JSONArray containing player rating.
      */
-    public static JSONArray getPlayerRatings(int id) {
+    public static JSONArray getPlayerRatings(long id) {
         String apiFunc = "/players/" + id + "/ratings";
         return new JSONArray(getData(apiBase + apiFunc));
     }
@@ -192,7 +192,7 @@ public class OpenDotaAPIWrapper {
      * @param id player id.
      * @return JSONArray containing player rankings.
      */
-    public static JSONArray getPlayerRankings(int id) {
+    public static JSONArray getPlayerRankings(long id) {
         String apiFunc = "/players/" + id + "/rankings";
         return new JSONArray(getData(apiBase + apiFunc));
     }
@@ -204,7 +204,7 @@ public class OpenDotaAPIWrapper {
      *
      * @param id player id.
      */
-    public static void postPlayerRefresh(int id) {
+    public static void postPlayerRefresh(long id) {
         String apiFunc = "/players/" + id + "/refresh";
         postData(apiBase + apiFunc);
     }
@@ -351,7 +351,7 @@ public class OpenDotaAPIWrapper {
 
             if (conn.getResponseCode() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : "
-                        + conn.getResponseCode() + " " + System.getProperty("http.proxyHost"));
+                        + conn.getResponseCode());
             }
 
             BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -369,8 +369,6 @@ public class OpenDotaAPIWrapper {
             e.printStackTrace();
 
         }
-        if (!result.toString().startsWith("{") && !result.toString().startsWith("["))
-            throw new RuntimeException("JsonObject must be started with { or [ " + result.toString());
         return result.toString();
     }
 
@@ -389,7 +387,7 @@ public class OpenDotaAPIWrapper {
 
             if (conn.getResponseCode() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : "
-                        + conn.getResponseCode() + " " + System.getProperty("http.proxyHost"));
+                        + conn.getResponseCode());
             }
 
             conn.disconnect();
