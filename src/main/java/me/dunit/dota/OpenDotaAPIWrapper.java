@@ -351,7 +351,7 @@ public class OpenDotaAPIWrapper {
 
             if (conn.getResponseCode() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : "
-                        + conn.getResponseCode());
+                        + conn.getResponseCode() + " " + System.getProperty("http.proxyHost"));
             }
 
             BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -369,7 +369,8 @@ public class OpenDotaAPIWrapper {
             e.printStackTrace();
 
         }
-
+        if (!result.toString().startsWith("{") && !result.toString().startsWith("["))
+            throw new RuntimeException("JsonObject must be started with { or [ " + result.toString());
         return result.toString();
     }
 
@@ -388,7 +389,7 @@ public class OpenDotaAPIWrapper {
 
             if (conn.getResponseCode() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : "
-                        + conn.getResponseCode());
+                        + conn.getResponseCode() + " " + System.getProperty("http.proxyHost"));
             }
 
             conn.disconnect();
